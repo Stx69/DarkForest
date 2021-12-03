@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+    height: 100vh;
+}
+#display_image{
+    position: relative;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    border: 2px solid black;
+    background-position: center center;
+    background-size: cover;
+}
+.header{
+    min-height: 100vh;
+    width: 100%;
+    font-family:Arial;
+    background-image: url(img/coruptedsun.png);
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    align-items: center;
+}
+.submitImage{
+    position: relative;
+    top: 10%;
+}
