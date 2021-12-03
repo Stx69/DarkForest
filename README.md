@@ -1,2 +1,4 @@
 # FractalTrialWeb
-I would like to learn.. :D 
+I Learning.. :D 
+
+Fractal bg's
