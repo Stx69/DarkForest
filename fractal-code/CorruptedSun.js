@@ -1,3 +1,4 @@
+<script type="x-shader/x-fragment" id="image">
 #ifdef GL_ES
 precision highp float;
 #endif
@@ -29,3 +30,4 @@ void main(void)
     Corrupted_SunFractal(time+60., gl_FragCoord.xy, resolution.xy, outCol);
     gl_FragColor = vec4(outCol + gl_FragCoord.xyz/resolution.xyy*0.2, 2.)*vec4(0.0,1.8,0,1);
 }
+</script>
