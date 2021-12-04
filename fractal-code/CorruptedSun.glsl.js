@@ -1,4 +1,4 @@
-<script type="x-shader/x-fragment" id="image">
+<script type="x-shader/x-fragment" id="bg">
 #ifdef GL_ES
 precision highp float;
 #endif

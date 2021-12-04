@@ -1,0 +1,155 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title> STX</title>
+
+    <meta name = "viewport" content="with=devide-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://xemantic.github.io/shader-web-background/dist/shader-web-background.min.js"></script>
+    <link rel="stylesheet" href="styles.css"/>
+    
+  <script type="x-shader/x-fragment" id="bghome">
+    precision highp float;
+
+
+uniform float iTime;
+uniform vec2 iResolution;
+
+#define OCTAVES 4
+#define bg vec3(0., 0., 1.)
+#define fg vec3(1., .4, 0.)
+
+float hash21(vec2 p) {
+  p = fract(p * vec2(233.34, 851.74));
+  p += dot(p, p + 23.45);
+  return fract(p.x * p.y);
+}
+
+vec2 hash22(vec2 p) {
+  float k = hash21(p);
+  return vec2(k, hash21(p + k));
+}
+
+float noise(vec2 p) {
+  vec2 i = ceil(p);
+  vec2 f = fract(p);
+  vec2 u = f * f * (3. - 2. * f);
+  float a = hash21(i);
+  float b = hash21(i + vec2(1., 0.));
+  float c = hash21(i + vec2(0., 1.));
+  float d = hash21(i + vec2(1., 1.));
+  return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
+
+float fbm( in vec2 p) {
+  float s = .0;
+  float m = .0;
+  float a = .8;
+  for (int i = 0; i < OCTAVES; i++) {
+    s += a * noise(p);
+    m += a;
+    a *= .7;
+    p *= 1.;
+  }
+  return s / m;
+}
+
+float circle(vec2 uv, vec2 p, float r) {
+  return 1. - smoothstep(r, r + .05, length(uv - p));
+}
+
+float layer(vec2 uv, float T) {
+  uv *= 4.;
+  vec2 iv = floor(uv);
+  vec2 gv = fract(uv) - .5;
+  vec2 r = hash22(iv) * 25.;
+  r = sin(r) * .3;
+  float image = 0.;
+  image = circle(gv, r, .3 * hash21(iv));
+  vec2 k = (r - gv) * 25.;
+  float sparkle = 1. / dot(k, k);
+  float t = .7 * hash21(iv);
+  image = image * sparkle * t;
+  return image;
+}
+
+mat2 rotate(float a) {
+  float c = cos(a);
+  float s = sin(a);
+  return mat2(c, s, -s, c);
+}
+
+void mainImage(out vec4 O, in vec2 I) {
+  float T = iTime;
+  vec2 R = iResolution.xy;
+  vec2 uv = (2. * I - R) / R.y;
+  uv += vec2(1. + 0.1 * cos(T / 2.), 5. * sin(T / 10.)) * .5;
+  uv *= rotate(T / 8.);
+  float y = uv.y;
+  vec3 grad = mix(.8 * sin(T / 5.) * vec3(.5, .2, 0.), vec3(0.), length(.5 + uv / 2.));
+  vec3 color = vec3(0.);
+  for (float i = 0.; i < 1.; i += 1. / 4.) {
+    mat2 rt = rotate(i * 3.14);
+    float z = fract(i + T / 10.);
+    float size = mix(5., .1, z);
+    vec3 mixed = mix(bg, fg, mix(0., 1., z));
+    float fade = smoothstep(0., .5, z);
+    fade *= smoothstep(1., .8, z);
+    color += (fbm(uv) * .09 * mix(vec3(0., .5, .5), vec3(1., .5, 0.), fade));
+    color += mixed * layer(rt * uv * size + i, T) * fade;
+    color += grad;
+  }
+  O = vec4(color, 1);
+}
+
+void main(void) {
+ 
+  mainImage(gl_FragColor, gl_FragCoord.xy);
+}
+</script>
+
+     
+
+<script>
+  shaderWebBackground.shade({
+    shaders: {
+      bghome: {
+        uniforms: {
+          iResolution: (gl, loc, ctx) => gl.uniform2f(loc, ctx.width, ctx.height),
+          iTime: (gl, loc) => gl.uniform1f(loc, performance.now() / 1000)
+        }
+      }
+    }
+  });
+</script>
+
+<style>
+    
+  .shader-web-background-fallback {
+    background: url("img/coruptedsun.png");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+</style>
+<link rel="shortcut icon" type="image/jpg" href="img/coruptedsun.png">
+</head>
+<body>
+<nav>
+<ul>
+
+  <li><a href="https://github.com/Stx69/FractalTrialWeb"><svg id="github" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-4.466 19.59c-.405.078-.534-.171-.534-.384v-2.195c0-.747-.262-1.233-.55-1.481 1.782-.198 3.654-.875 3.654-3.947 0-.874-.312-1.588-.823-2.147.082-.202.356-1.016-.079-2.117 0 0-.671-.215-2.198.82-.64-.18-1.324-.267-2.004-.271-.68.003-1.364.091-2.003.269-1.528-1.035-2.2-.82-2.2-.82-.434 1.102-.16 1.915-.077 2.118-.512.56-.824 1.273-.824 2.147 0 3.064 1.867 3.751 3.645 3.954-.229.2-.436.552-.508 1.07-.457.204-1.614.557-2.328-.666 0 0-.423-.768-1.227-.825 0 0-.78-.01-.055.487 0 0 .525.246.889 1.17 0 0 .463 1.428 2.688.944v1.489c0 .211-.129.459-.528.385-3.18-1.057-5.472-4.056-5.472-7.59 0-4.419 3.582-8 8-8s8 3.581 8 8c0 3.533-2.289 6.531-5.466 7.59z"/></svg></a></li>
+ <li><a href="index.html">Back</a></li>
+</ul>
+</nav>
+<section >
+    <h1 class="text-center ">Welcome ... </h1>     
+</section>
+<section>
+<h2 class="text-center ">site under construction your 9STX6 </h2>
+</section>
+
+</body>
+</html>
