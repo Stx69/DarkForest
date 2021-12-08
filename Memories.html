@@ -1,0 +1,263 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title> STX</title>
+
+    <meta name = "viewport" content="with=devide-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://xemantic.github.io/shader-web-background/dist/shader-web-background.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/MemoriesStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="css/lightbox.min.css"/>
+    <script src="js/lightbox-plus-jquery.min.js"></script>
+    <link rel="shortcut icon" type="image/jpg" href="img/coruptedsun.png">
+    <!–– Backround Fractalcode script––> 
+    <!–– TODO: Change to file be flexible––> 
+  <script type="x-shader/x-fragment" id="bgGallery1">
+    #ifdef GL_ES
+    precision highp float;
+    #endif
+     
+     
+    uniform float iTime;
+    //uniform vec2 mouse;
+    uniform vec2 iResolution;
+    
+    
+    #define iterations 14
+    #define formuparam2 0.79
+     
+    #define volsteps 7
+    #define stepsize 0.190
+     
+    #define zoom .900
+    #define tile  .50
+    
+    #define speed2  0.0
+    #define cloudSpeed 0.01
+    #define twinkle 0.00
+    
+     
+    #define brightness 0.003
+    #define darkmatter 0.400
+    #define distfading 0.460
+    #define saturation 0.850
+    
+    
+    #define transverseSpeed 0.0 //zoom*1.0
+    #define cloud 0.09 
+    
+     
+    float triangle(float x, float a) { 
+        float output2 =2.0*abs( 2.0*  ( (x/a) - floor( (x/a) + 0.5) ) ) - 1.0;
+        return output2;
+    }
+     
+    float field(in vec3 p) {
+        float cloudTime = iTime*cloudSpeed;
+        float strength = 3. + .03 * log(1.e-6 + fract(sin(cloudTime) * 4373.11));
+        float accum = 0.1;
+        float prev = 0.;
+        float tw = 0.;  
+    
+        for (int i = 0; i < 9; ++i) {
+            float mag = dot(p, p);
+            p = abs(p) / mag + vec3(-.5, -.8 + 0.1*sin(cloudTime*0.7 + 2.0), -1.1+0.3*cos(cloudTime*0.3));
+            float w = exp(-float(i) / 7.);
+            accum += w * exp(-strength * pow(abs(mag - prev), 2.3));
+            tw += w;
+            prev = mag;
+        }
+        return max(0., 4. * accum / tw - .7);
+    }
+    
+    
+    
+    void main() {   
+            vec2 uv2 = gl_FragCoord.xy/iResolution.xy-0.2;
+        uv2.y *= iResolution.y/iResolution.x;
+        vec2 uvs = uv2;
+        
+        float time2 = iTime;               
+            
+            float speed = - speed2 * cos(time2*0.01 + 3.1415926/4.0);          
+        speed = 0.0;  
+            float formuparam = formuparam2;
+        
+          //get coords and direction  
+        vec2 uv = uvs;             
+        //mouse rotation
+        float a_xz = 0.2;
+        float a_yz = -0.0;
+        float a_xy = 0.05;// + iTime*0.04;    
+        
+        mat2 rot_xz = mat2(cos(a_xz),sin(a_xz),-sin(a_xz),cos(a_xz));   
+        mat2 rot_yz = mat2(cos(a_yz),sin(a_yz),-sin(a_yz),cos(a_yz));       
+        mat2 rot_xy = mat2(cos(a_xy),sin(a_xy),-sin(a_xy),cos(a_xy));
+        
+    
+        float v2 =1.0;  
+        vec3 dir=vec3(uv*zoom,1.); 
+        vec3 from=vec3(0.0, 0.0,0.0);                               
+            
+       // from.x -= 0.1*(mouse.x-0.5);
+       // from.y -= 0.1*(mouse.y-0.5);
+        
+        
+        from.x += 10.0*cos(0.004*iTime);
+        from.y += 10.0*sin(0.004*iTime);
+        from.z += 0.003*iTime;
+               
+           
+        vec3 forward = vec3(0.,0.,1.0 - twinkle);   
+        
+        dir.xy*=rot_xy;
+        dir.xz*=rot_xz;
+        dir.yz*= rot_yz;
+        
+        forward.xy *= rot_xy;
+        forward.xz *= rot_xz;
+        forward.yz *= rot_yz;
+        
+        from.xy*=rot_xy;
+        from.xz*=rot_xz;
+        from.yz*= rot_yz;
+        
+        
+        //zoom
+        float zooom = (time2)*speed;
+        
+        from += forward* zooom*1.0;
+        
+        float sampleShift = mod( zooom, stepsize );
+         
+        float zoffset = -sampleShift;
+        sampleShift /= stepsize; // make from 0 to 1
+        
+        //volumetric rendering
+        float s=0.6;
+        float s3 = s + stepsize/2.0;
+        vec3 v=vec3(0.);
+        float t3 = 0.0; 
+        
+        vec3 backCol2 = vec3(0.);
+        for (int r=0; r<volsteps; r++) {
+            vec3 p2=from+(s+zoffset)*dir + vec3(0.,0.,zoffset);
+            vec3 p3=from+(s3+zoffset)*dir;// + vec3(0.,0.,zoffset);
+            
+            p2 = abs(vec3(tile)-mod(p2,vec3(tile*2.))); // tiling fold
+            p3 = abs(vec3(tile)-mod(p3,vec3(tile*2.))); // tiling fold      
+            #ifdef cloud
+            t3 = field(p3);
+            #endif
+            
+            float pa,a=pa=0.;
+            for (int i=0; i<iterations; i++) {
+                p2=abs(p2)/dot(p2,p2)-formuparam; // the magic formula
+                //p=abs(p)/max(dot(p,p),0.005)-formuparam; // another interesting way to reduce noise
+                float D = abs(length(p2)-pa); // absolute sum of average change
+                a += i > 7 ? min( 12., D) : D;
+                pa=length(p2);
+            }
+            
+            
+            float dm=max(0.,darkmatter-a*a*.001); //dark matter
+            a*=a*a; // add contrast
+            //if (r>3) fade*=1.-dm; // dark matter, don't render near
+            // brightens stuff up a bit
+            float s1 = s+zoffset;
+            // need closed form expression for this, now that we shift samples
+            float fade = pow(distfading,max(4.,float(r)-sampleShift));      
+            t3 += fade;       
+            v+=fade;
+                //backCol2 -= fade;
+    
+            // fade out samples as they approach the camera
+            if( r == 0 )
+                fade *= (1. - (sampleShift));
+            // fade in samples as they approach from the distance
+            if( r == volsteps-1 )
+                fade *= sampleShift;
+            v+=vec3(s1,s1*s1,s1*s1*s1*s1)*a*brightness*fade; // coloring based on distance
+            
+            backCol2 += mix(5.2, 1., v2) * vec3(0.1 * t3 * t3 * t3, .5 * t3 * t3, t3) * fade;
+    
+            
+            s+=stepsize;
+            s3 += stepsize;     
+        }//фор
+                   
+        v=mix(vec3(length(v)),v,saturation); //color adjust 
+    
+        vec4 forCol2 = vec4(v*.01,1.);  
+        #ifdef cloud
+        backCol2 *= cloud;
+        #endif  
+        backCol2.b *= .6;
+        backCol2.r *= 1.2; 
+        
+        backCol2.b = 0.5*mix(backCol2.g, backCol2.b, 0.8);
+        backCol2.g = 0.0;
+    //  backCol2.bg = mix(backCol2.gb, backCol2.bg, 0.5*(cos(iTime*0.01) + 1.0));    
+        gl_FragColor = forCol2 + vec4(backCol2, 1.0);
+    }
+</script>
+<!–– Backround code script - shader loading––>
+<script>
+  shaderWebBackground.shade({
+    shaders: {
+      bgGallery1: {
+        uniforms: {
+          iResolution: (gl, loc, ctx) => gl.uniform2f(loc, ctx.width, ctx.height),
+          iTime: (gl, loc) => gl.uniform1f(loc, performance.now() / 1000),
+        //  mouse: (gl, loc, ctx) => gl.uniform2f(loc, ctx.shaderMouseX, ctx.shaderMouseY),
+        }
+      }
+    }
+  });
+</script>
+<!–– Backround code script - fallback if error––>
+<style>  
+
+</style>
+
+<!–– Html code of page––>
+<!–– Icon of page––>
+</style>
+
+
+</head>
+<body>
+
+  <section >
+    <h2 class="text-center"> 2021/12 - Dark Forest - GuildW - Comunnity round 1 : For Pioneers  </h2>     
+</section>
+  
+<div class="gallery">
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/MetrixWorld_Arrival.png" data-lightbox="mygallery" data-title="Empire arrived into Metrix World universe and we was started to settle down a bit... after couple of years Red team suprise our kingdom..."> <img src="img/Gallery/For Pioneers-ComunityRound-1/MetrixWorld_Arrival-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/MetrixWorld_StartFight.png" data-lightbox="mygallery" data-title="Our explore units identify possibility to find final solution with our enemy..."><img src="img/Gallery/For Pioneers-ComunityRound-1/MetrixWorld_StartFight-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/MetrixWorld_StartGuarding.png" data-lightbox="mygallery" data-title="When conquered all pottential dangerous planets. Our empire come to Guardian's state of Metrix World..."><img src="img/Gallery/For Pioneers-ComunityRound-1/MetrixWorld_StartGuarding-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/Expedition-VBQ-Start.png" data-lightbox="mygallery" data-title="At meanwhile empire organized Expedition to Vitalik Buterin Quassar universe..."><img src="img/Gallery/For Pioneers-ComunityRound-1/Expedition-VBQ-Start-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/Corrupted-VBQ.png" data-lightbox="mygallery" data-title="VBQ detail"><img src="img/Gallery/For Pioneers-ComunityRound-1/Corrupted-VBQ-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/Bulmenisaurus-ExpeditionStart.png" data-lightbox="mygallery" data-title="Volunteer Bulmenisaurus join to Expedition..."><img src="img/Gallery/For Pioneers-ComunityRound-1/Bulmenisaurus-ExpeditionStart-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/Bulmenisaurus-First.png" data-lightbox="mygallery" data-title="We was near meet point"><img src="img/Gallery/For Pioneers-ComunityRound-1/Bulmenisaurus-First-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/Bulmenisaurus-visitingVB.png" data-lightbox="mygallery" data-title="Bulmenisaurus already start preparing kick-off meeting..."><img src="img/Gallery/For Pioneers-ComunityRound-1/Bulmenisaurus-visitingVB-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/SourFlower.png" data-lightbox="mygallery" data-title="We forgot invite Sour Flower within time in good gas rate..."><img src="img/Gallery/For Pioneers-ComunityRound-1/SourFlower-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/Beated-VBQ.png" data-lightbox="mygallery" data-title="And were wiped from waiting list..."><img src="img/Gallery/For Pioneers-ComunityRound-1/Beated-VBQ-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/Me-VBQ.png" data-lightbox="mygallery" data-title="I was able still to listen, but nobody other come... 0xRonin - Great Guardian stopped our empire..."><img src="img/Gallery/For Pioneers-ComunityRound-1/Me-VBQ-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/CryptoWesearch-after.png" data-lightbox="mygallery" data-title="Finally meeting was cancel and I move to explore other universe area's"><img src="img/Gallery/For Pioneers-ComunityRound-1/CryptoWesearch-after-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/RSS3-After.png" data-lightbox="mygallery" data-title="When I arrived to RSS3 was to late...."><img src="img/Gallery/For Pioneers-ComunityRound-1/RSS3-After-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/Status-11h.png" data-lightbox="mygallery" data-title="Leader board 11h before end of round"><img src="img/Gallery/For Pioneers-ComunityRound-1/Status-11h-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/ComunityPioneer-r1-top12.png" data-lightbox="mygallery" data-title="Leaderboard top 12 BLUE / RED"><img src="img/Gallery/For Pioneers-ComunityRound-1/ComunityPioneer-r1-top12-small.png"></a>
+  <a href="img/Gallery/For Pioneers-ComunityRound-1/ComunityPioneer-r1-me-14.png" data-lightbox="mygallery" data-title="Leaderboard ME on 14. BLUE"><img src="img/Gallery/For Pioneers-ComunityRound-1/ComunityPioneer-r1-me-14-small.png"></a>
+</div>
+
+
+
+<nav>
+<ul>
+ <li><a href="index.html">Back</a></li>
+</ul>
+</nav>
+</body>
+</html>
+

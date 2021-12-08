@@ -24,13 +24,36 @@ body{
     min-height: 100vh;
     width: 100%;
     font-family:Arial;
-  //  background-image: url(img/coruptedsun.png);
     background-position: center;
     background-size: cover;
     text-align: center;
     align-items: center;
 }
-.submitImage{
-    position: relative;
-    top: 10%;
+
+h1 {
+    color: rgb(0, 0, 0);
+    vertical-align: text-top;
+    
 }
+
+h2 {
+    color: rgb(0, 0, 0);
+    vertical-align: text-bottom;
+  
+}
+
+.navbar {
+    overflow: hidden;
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .headerMiddle {
+    top: 60%;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    text-align: center;
+  }
