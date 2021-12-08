@@ -4,7 +4,6 @@
 }
 body{
     display:flex;
-    justify-content: center;
     align-items: center;
     gap: 10px;
     flex-direction: column;
@@ -33,7 +32,7 @@ body{
 h1 {
     color: rgb(0, 0, 0);
     vertical-align: text-top;
-    
+    top: 60%;
 }
 
 h2 {
@@ -50,10 +49,19 @@ h2 {
     text-align: center;
   }
   
-  .headerMiddle {
-    top: 60%;
+  .headerTop {
     overflow: hidden;
     position: fixed;
+    top: 275px;
     width: 100%;
     text-align: center;
   }
+
+  .menu {
+    overflow: hidden;
+    position: fixed;
+    top: 400px;
+    width: 100%;
+    text-align: center;
+  }
+ 
