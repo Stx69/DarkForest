@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://xemantic.github.io/shader-web-background/dist/shader-web-background.min.js"></script>
     <link rel="stylesheet" href="css/styles.css"/>
-    
+    <link rel="shortcut icon" type="image/jpg" href="img/coruptedsun.png">
+  
   <script type="x-shader/x-fragment" id="bg">
     precision highp float;
 
@@ -37,8 +38,8 @@
         Corrupted_SunFractal(iTime+60., gl_FragCoord.xy, iResolution.xy, outCol);
         gl_FragColor = vec4(outCol + gl_FragCoord.xyz/iResolution.xyy*0.2, 2.)*vec4(0.0,1.8,0,1);
     }
-</script>
-<script>
+  </script>
+  <script>
   shaderWebBackground.shade({
     shaders: {
       bg: {
@@ -49,23 +50,10 @@
       }
     }
   });
-</script>
-
-<style>
-  .shader-web-background-fallback {
-    background: url("img/coruptedsun.png");
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-  }
-</style>
-    <link rel="shortcut icon" type="image/jpg" href="img/coruptedsun.png">
+  </script>
+    
 </head>
 <body>
-
-
-     </div>
-  </body>
   <div class="headerTop">
     <h1>Welcome,</h1>
     <h1>Dark Forest Explorer...</h1>

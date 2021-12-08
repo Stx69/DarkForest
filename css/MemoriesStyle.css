@@ -8,16 +8,6 @@ body{
     height: 95vh;
 }
 
-.header{
-    min-height: 99vh;
-    width: 100%;
-    font-family:Arial;
-    background-position: center;
-    background-size: cover;
-    text-align: center;
-    align-items: center;
-}
-
 .desc {
     padding: 15px;
     text-align: center;
