@@ -1,6 +1,10 @@
-# FractalTrialWeb
-I Learning.. :D 
+# DarkForest 9STX6 web
+I learning by doing... :D
 
-Fractal bg's
+My first html code. 
 
-https://stx69.github.io/FractalTrialWeb/
+Will be use to share my memories and news from DarkForest universe.
+
+Darkforest theme for Fractal bg's. 
+
+https://stx69.github.io/DarkForest/
