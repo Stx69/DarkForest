@@ -61,3 +61,7 @@ h2 {
     background-size: cover;
     background-attachment: fixed;
   }
+
+  .tip-button {
+    cursor:pointer;
+  }
