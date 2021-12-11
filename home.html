@@ -127,9 +127,73 @@ void main(void) {
 <p> glad to see You here, feel free to look around and apologize me, pages are still under construction... </p>
 <p>Enjoy Your journey to explore DF universe and be ready to defend against Trisolaran fleet. They distance is shorter any day... </p>
 <p>9STX6 </p>
-
-<a href="index.html">Back</a></h2>
+<p>If you like fractals and you wanna know more about Dark Forest universe you can DONATE me!  </p>
+<p>1.connect MetaMask to site & 2.click will be create DONATE Tx</p>
+</h3>
+<img class="tip-button" id="tip-button" src="img/Donate.png" alt="Metamask tip button" style="width:1.1%;">
+    <h3>DONATE!!! THANK YOU AT ADVANCE!!! MORE WILL COME!!! </span>
+    <p>Your address: <span class="showAccount" id="showAccount"></p>
+    <p>My address: <span class="showMy" id="showMy"></span></p>
+    <p>Chain: <span class="showChain" id="showChain"></span></p></h3>
+    <div class="message"></div>
+    <a href="index.html">Back</a>
 </section>
 </div>
+
+<script>
+  
+  var MY_ADDRESS = '0x5E5d45EC270dff3f80d8672aEF7217864C252d17'
+  var tipButton = document.querySelector('.tip-button')
+  var showAccount = document.querySelector('.showAccount')
+  var showMy = document.querySelector('.showMy')
+  var showChain = document.querySelector('.showChain')
+  var h3 = document.querySelector('h3')
+  h3.style.fontSize = "0px";
+  tipButton.addEventListener('click',async function() 
+    {
+    if (typeof window.ethereum === 'undefined') {
+      return renderMessage('<div>You need to install <a href=“https://metmask.io“>MetaMask </a> to use this feature.  <a href=“https://metmask.io“>https://metamask.io</a></div>')
+    }
+
+      // window.ethereum
+  try {
+  const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+  const curretChain = await ethereum.request({ method: 'net_version' });
+showChain.innerHTML = curretChain;
+var account = accounts[0];
+showAccount.innerHTML = accounts[0];
+showMy.innerHTML = MY_ADDRESS;
+h3.style.fontSize = "20px";
+const chainETH = '1';
+const chainXdai = '100';
+if (curretChain !== chainXdai ){
+  var amount = '0x' + (2000000000000000).toString(16);
+}
+else {
+var amount = '0x' + (1000000000000000000).toString(16);
+}
+
+const transactionHash = await ethereum.request({
+  method: 'eth_sendTransaction',
+  params: [
+    {
+      to: MY_ADDRESS,
+      from: account,
+      value: amount,
+    },
+  ],
+})
+// Handle the result
+
+console.log(transactionHash);
+} catch (error) {
+console.error(error);
+}
+  function renderMessage (message) 
+      {
+      var messageEl = document.querySelector('.message')
+      messageEl.innerHTML = message
+      }})   
+</script>
 </body>
 </html>

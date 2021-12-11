@@ -95,9 +95,7 @@
 
     tipButton.addEventListener('click',async function() 
       {
-      if (typeof window.ethereum === 'undefined') {
-        showAccount.innerHTML = accounts[0];
-        
+      if (typeof window.ethereum === 'undefined') {   
         return renderMessage('<div>You need to install <a href=“https://metmask.io“>MetaMask </a> to use this feature.  <a href=“https://metmask.io“>https://metamask.io</a></div>')
       }
 
@@ -140,19 +138,6 @@
         var messageEl = document.querySelector('.message')
         messageEl.innerHTML = message
         }})   
-
-        ethereum.on('chainChanged', (chainId) => {
-  // Handle the new chain.
-  // Correctly handling chain changes can be complicated.
-  // We recommend reloading the page unless you have good reason not to.
- // window.location.reload();
-});
-
-ethereum.on('accountsChanged', (accounts) => {
-  // Handle the new accounts, or lack thereof.
-  // "accounts" will always be an array, but it can be empty.
-  //window.location.reload();
-});
 
 
  </script>
