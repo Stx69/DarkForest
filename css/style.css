@@ -7,7 +7,7 @@
 body {
   display:flex;
   align-items: center;
-  
+  height: 95vh;
   flex-direction: column;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
@@ -15,7 +15,7 @@ body {
 }
 details {
   margin: 10px;
- 
+ margin-right: 5px;
 }
 summary {
   writing-mode: vertical-lr;
@@ -130,5 +130,8 @@ details[open]::before {
   text-align: center;
 }
 .tip-button {
+  width:23px;
+  min-height:23px;
+  min-width:23px;
   cursor:pointer;
 }
