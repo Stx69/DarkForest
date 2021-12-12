@@ -1,7 +1,8 @@
 :root {
+  --hoverColor: #3d39391c;
   --primColor: #dcdcdc00;
   --secoColor: #000000;
-  --cornerRad: 4px;
+  --cornerRad: 7px;
 }
 body {
   display:flex;
@@ -45,7 +46,7 @@ summary::after {
   letter-spacing: -1px;
 }
 summary:hover {
-  transform: scale(1.1);
+  transform: scale(0.95);
 }
 summary::marker {
   font-size: 0;
@@ -63,7 +64,6 @@ details[open] summary::after {
   content: "";
 }
 .menu {
-  
   height: 0;
   width: fit-content;
   border-radius: var(--cornerRad);
@@ -92,7 +92,8 @@ details[open] summary::after {
   border-bottom: none;
 }
 .menu a:hover {
-  filter: brightness(200%);
+  background-color: var(--hoverColor);
+  filter: brightness(200%); 
 }
 details::before {
   
