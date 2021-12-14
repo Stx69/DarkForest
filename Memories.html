@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <title> STX</title>
@@ -17,7 +19,7 @@
      
      
     uniform float iTime;
-    //uniform vec2 mouse;
+    uniform vec2 iMouse;
     uniform vec2 iResolution;
     
     
@@ -86,7 +88,7 @@
         //mouse rotation
         float a_xz = 0.2;
         float a_yz = -0.0;
-        float a_xy = 0.05;// + iTime*0.04;    
+        float a_xy = 0.05; // + iTime*0.001;    
         
         mat2 rot_xz = mat2(cos(a_xz),sin(a_xz),-sin(a_xz),cos(a_xz));   
         mat2 rot_yz = mat2(cos(a_yz),sin(a_yz),-sin(a_yz),cos(a_yz));       
@@ -97,8 +99,8 @@
         vec3 dir=vec3(uv*zoom,1.); 
         vec3 from=vec3(0.0, 0.0,0.0);                               
             
-       // from.x -= 0.1*(mouse.x-0.5);
-       // from.y -= 0.1*(mouse.y-0.5);
+        from.x -= 0.1*(iMouse.x-0.5);
+        from.y -= 0.1*(iMouse.y-0.5);
         
         
         from.x += 10.0*cos(0.004*iTime);
@@ -182,7 +184,7 @@
             
             s+=stepsize;
             s3 += stepsize;     
-        }//фор
+        }//
                    
         v=mix(vec3(length(v)),v,saturation); //color adjust 
     
@@ -201,13 +203,38 @@
 </script>
 
 <script>
+
+    var mouseX = 1 ;
+    var mouseY = 1 ;
+
+    document.addEventListener("mousemove", (event) => {
+       mouseX = event.clientX  / 1024;
+       mouseY = event.clientY / 1024;
+    });
+
+
   shaderWebBackground.shade({
+    onInit: (ctx) => {
+    // we can center the mouse even before any "mousemove" event occurs
+    // note, we are 
+   // mouseX = ctx.cssWidth /2;
+    //mouseY = ctx.cssHeight /2 ;
+    // for convenience you can store your attributes on context
+    ctx.iFrame = 0;
+  },
+  onResize: (width, height, ctx) => {
+    ctx.iMinDimension = Math.min(width, height);
+  },                 
+  onBeforeFrame: (ctx) => {
+    ctx.shaderMouseX = ctx.toShaderX(mouseX);
+    ctx.shaderMouseY = ctx.toShaderY(mouseY);
+  },
     shaders: {
       bgGallery1: {
         uniforms: {
           iResolution: (gl, loc, ctx) => gl.uniform2f(loc, ctx.width, ctx.height),
           iTime: (gl, loc) => gl.uniform1f(loc, performance.now() / 1000),
-        //  mouse: (gl, loc, ctx) => gl.uniform2f(loc, ctx.shaderMouseX, ctx.shaderMouseY),
+          iMouse: (gl, loc, ctx) => gl.uniform2f(loc, ctx.shaderMouseX, ctx.shaderMouseY),
         }
       }
     }
