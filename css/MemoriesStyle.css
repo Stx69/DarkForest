@@ -47,3 +47,16 @@ h2 {
     vertical-align: text-bottom;
     text-shadow: 2px 2px #d19e9e;
 }
+.navbar {
+  overflow: hidden;
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+.tip-button {
+  width:23px;
+  min-height:23px;
+  min-width:23px;
+  cursor:pointer;
+}
