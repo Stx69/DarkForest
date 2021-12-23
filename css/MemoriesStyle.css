@@ -46,6 +46,7 @@ h2 {
     color: rgb(117, 98, 69);
     vertical-align: text-bottom;
     text-shadow: 2px 2px #d19e9e;
+    font-size: 40px;
 }
 .navbar {
   overflow: hidden;
