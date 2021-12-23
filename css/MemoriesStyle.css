@@ -60,3 +60,9 @@ h2 {
   min-width:23px;
   cursor:pointer;
 }
+.index-button {
+  width:23px;
+  min-height:23px;
+  min-width:23px;
+  cursor:pointer;
+}
