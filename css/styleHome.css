@@ -139,12 +139,14 @@ details[open]::before {
 h1 {
   color: rgb(54, 182, 43);
   font-size: larger;
-  text-align: center;
+  padding-left: 20px;
 }
 h2 {
   color: rgb(54, 182, 43);
   font-size: medium;
+  position: relative;
   padding-left: 20px;
+  padding-bottom: 150px;
 }
 
 h3 {
@@ -156,9 +158,7 @@ h3 {
 h4 {
   color: rgb(54, 182, 43);
   font-size: smaller;
-  position: fixed;
   padding-left: 20px;
-  padding-top: 320px;
 }
 
 .index-button {
