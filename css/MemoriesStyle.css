@@ -42,18 +42,13 @@ body{
     transform: scale(1.25);
 }
 
-h2 {
-    color: rgb(117, 98, 69);
-    vertical-align: text-bottom;
-    text-shadow: 2px 2px #d19e9e;
-    font-size: 40px;
-}
 .navbar {
   overflow: hidden;
   position: fixed;
   bottom: 10px;
   width: 100%;
   text-align: center;
+  left: 700px;
 }
 .tip-button {
   width:23px;
@@ -67,3 +62,28 @@ h2 {
   min-width:23px;
   cursor:pointer;
 }
+h1 {
+  color: rgb(117, 98, 69);
+  text-shadow: 2px 2px #d19e9e;
+  font-size: 40px;
+  padding-top: 400px;
+}
+h2 {
+  color: rgb(117, 98, 69);
+  text-shadow: 2px 2px #d19e9e;
+  font-size: 40px;
+}
+h3 {
+  color: rgb(54, 182, 43);
+  font-size: smaller;
+  bottom: auto;
+}
+h4 {
+  color: rgb(54, 182, 43);
+  font-size: smaller;
+  position: fixed;
+  padding-left: 20px;
+  padding-top: 320px;
+}
+
+
