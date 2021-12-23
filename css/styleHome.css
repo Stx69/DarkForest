@@ -204,3 +204,22 @@ h4 {
   font-size: 30px;
 }
 
+.gallery {
+  margin: 50px;
+  float: left;
+  vertical-align: auto;
+  text-align: center;
+
+}
+.gallery img {
+  transition: 1s;
+  padding: 15px;
+  width: 200px;
+  background-size: cover;
+
+}
+.gallery img:hover {
+  
+  transform: scale(1.25);
+}
+
