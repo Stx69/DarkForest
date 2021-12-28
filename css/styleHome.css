@@ -170,12 +170,14 @@ h4 {
 }
 
 .item1 { grid-area: header; 
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-  height: 400px;
+  height: 30px;
 }
-/*.item2 { grid-area: menu; }
-.item3 { grid-area: main; }
+.item2 { grid-area: header2; height: 40px; }
+.item3 { grid-area: main; overflow-y: scroll;
+  scroll-behavior: smooth;
+  height: 200px;}
+/*
+
 .item4 { grid-area: right; }*/
 .item5 { grid-area: footer; 
   
@@ -190,7 +192,8 @@ h4 {
   display: grid;
   grid-template-areas:
     'header header header header header header'
-    'menu main main main main main'
+    'header2 header2 header2 header2 header2 header2'
+    'main main main main main main'
     'footer footer footer footer footer footer';
   grid-gap: 10px;
   background-color: var(--nothing);
