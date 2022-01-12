@@ -1,15 +1,16 @@
 <html lang="en">
+
 <head>
-    <title> STX-Home</title>
-    <meta charset="utf-8">
-    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <script src="https://xemantic.github.io/shader-web-background/dist/shader-web-background.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/lightbox.min.css"/>
-    <script src="js/lightbox-plus-jquery.min.js"></script>
-    <link rel="stylesheet" href="css/styleHome.css"/>
-    <link rel="shortcut icon" type="image/jpg" href="img/coruptedsun.png">
-    <script src="js/lightbox-plus-jquery.min.js"></script>
+  <title> STX-Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="https://xemantic.github.io/shader-web-background/dist/shader-web-background.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/lightbox.min.css" />
+  <script src="js/lightbox-plus-jquery.min.js"></script>
+  <link rel="stylesheet" href="css/styleHome.css" />
+  <link rel="shortcut icon" type="image/jpg" href="img/coruptedsun.png">
+  <script src="js/lightbox-plus-jquery.min.js"></script>
   <script type="x-shader/x-fragment" id="bghome">
     precision mediump float;
 uniform float iTime;
@@ -107,161 +108,208 @@ void main(void) {
   mainImage(gl_FragColor, gl_FragCoord.xy);
 }
 </script>
-<!–– Backround code script - shader loading––>
-<script>
-  shaderWebBackground.shade({
-    shaders: {
-      bghome: {
-        uniforms: {
-          iResolution: (gl, loc, ctx) => gl.uniform2f(loc, ctx.width, ctx.height),
-          iTime: (gl, loc) => gl.uniform1f(loc, performance.now() / 1000)
+  <!–– Backround code script - shader loading––>
+    <script>
+      shaderWebBackground.shade({
+        shaders: {
+          bghome: {
+            uniforms: {
+              iResolution: (gl, loc, ctx) => gl.uniform2f(loc, ctx.width, ctx.height),
+              iTime: (gl, loc) => gl.uniform1f(loc, performance.now() / 1000)
+            }
+          }
         }
-      }
-    }
-  });
-</script>
+      });
+    </script>
 
 </head>
+
 <body>
   <details>
-  <summary></summary>
-<nav class="menu" id="menu">
-  <div class="grid-container">
-    <div class="item1">
-      <h1  class="text-center"> <b> Dear DarkForest Volunteer,</b></h1>  </p></div>
+    <summary></summary>
+    <nav class="menu" id="menu">
+      <div class="grid-container">
+        <div class="item1">
+          <h1 class="text-center"> <b> Dear DarkForest Volunteer,</b></h1>
+          </p>
+        </div>
 
-      <div class="item2">
-        <h2 ><p> glad to see You here, feel free to look around and apologize me, pages are still under construction... 
-          <p> Enjoy Your journey to explore DF universe and be ready to defend against Trisolaran fleet. They distance is shorter any day... Your 9STX6</p> 
-      </h2>
+        <div class="item2">
+          <h2>
+            <p> glad to see You here, feel free to look around and apologize me, pages are still under construction...
+            <p> Enjoy Your journey to explore DF universe and be ready to defend against Trisolaran fleet. They distance
+              is shorter any day... Your 9STX6</p>
+          </h2>
+        </div>
+
+        <div class="item3">
+          <h2>
+
+            <a href="https://github.com/darkforest-eth/plugins/pull/193" style="color:#00ff00">12/01/2022 - New plugin
+              "You Snooze, you lose!" by Niftymaestro </a>
+
+            <br>
+            <br>
+            <p> 10/01/2022 - BenchTestPlugins - FerdaAnt's BOT WIP DF - local R3 speed 2000</p>
+
+            <iframe width="420" height="315" src="https://www.youtube.com/embed/uD4Z_Rjz3RQ" frameborder="0"
+              allowfullscreen>
+            </iframe>
+            <br>
+            <p> 9/01/2022 - 9STX6 Empire in DFdao Community round 1: Death of the Universe </p>
+            <p> &emsp; Preparing some complex feedback about #2 place :D </p>
+            <p> &emsp; Memories from DFdao Community round 1: Death of the Universe <a href="Memories.html"
+                style="color:#00ff00">Gallery</a> </p>
+            <br>
+            <br>
+            <a href="https://opensea.io/assets/0x9724fdf5ae41570decc2d3094c65eafa7e1ab7d4/39565163400297645850005659238505187020060667857058521155439685050221633517481"
+              style="color:#00ff00">Donate me!!! You will recieve access to my pack of plugins from offical DF round 4.
+              #18 place. Bury Implant Mine </a>
+
+            <p>
+              <video width="100" height="100" autoplay muted loop>
+                <source
+                  src="https://darkforest-valhalla.s3.us-east-2.amazonaws.com/resources/webm/r4-0-39565163400297645850005659238505187020060667857058521155439685050221633517481.webm"
+                  type="video/webm">
+              </video>
+            </p>
+            <br>
+            <br>
+            <p> 30/12/2021 - New plugin for basic Diplomacy Ambassador with colored heat areas map... <a
+                style="color:#00ff00" href="https://github.com/darkforest-eth/plugins/pull/188/files">Github /188</a>
+            </p>
+            <a href="img/Gallery/Plugins/DiplomacyAmbassadorBig.png" data-lightbox="mygallery"
+              data-title="Diplomacy Ambassador"> <img src="img/Gallery/Plugins/DiplomacyAmbassador.png"></a>
+            <p> you can support grants for more zk proof chat and guilds <a style="color:#00ff00"
+                href="https://gitcoin.co/grants/4287/zk-chat-and-guild-system-in-dark-forest">GitCoin Grant Zk-chat &
+                Guild system </a></p>
+            <br>
+            <br>
+            <p> 27/12/2021 - Was announced DF Dao Community Round - 1/1/2022<->4/1/2022 <a style="color:#00ff00"
+                  href="https://medium.com/dfdao/a-dark-forest-new-years-community-round-death-of-the-universe-785af7c2b56e">DFDao
+                  Community Round: Death of the Universe</a> <a style="color:#ff9900"
+                  href="https://modukon.github.io/">START TIME</a></p>
+            <br>
+            <p> 24/12/2021 - Take this sites with a reserve are from a fanatical player of Dark Forest and I'll be only
+              happy if they can help some novice explorer and in the future maybe for more experienced players. I will
+              try to report my life in the Dark Forest Universe. Only things that are documented will remain in
+              Memories. Over time, as I learn how to work on web3 html pages, content and features will be added. I'm
+              currently focusing on three main points ... There will be something like a blog. The Corrupted sun is the
+              main signpost where I have prepared the most important links that I use myself. , and in Memories there
+              will be a gallery around my exploring DF universe ... This sites are builded via <a1
+                href="https://pages.github.com/">Github pages</a1>. </p>
+            <p> I would like to <span style="color:#FF0000">warn all</span> to avoid any mischievous behavior and report
+              that immediately to the official dev teams. In recent days, there has been an attempt to discredit the
+              work of developers and fun of our community through dishonest attacks by scammers ... More on official DF
+              discord ... </p>
+            <p> <span style="color:#FF0000">!!! Avoid any purshase of pre-sale token... !!! </span> </p>
+            <div class="gallery" id="scammer">
+              <a href="scammershitDF/Df-scamer11-.png" data-lightbox="mygallery"
+                data-title="Scammer ETH address 0x0D59311Cdc9C120daE893721a545e64bBE526be9"> <img
+                  src="scammershitDF/Df-scamer11-small.png"></a>
+              <a style="color:#bbff00"
+                href="https://explorer.bitquery.io/ethereum/address/0x30df2ca2d38c947df560d92be39a89b5bf4bda52/graph">Tracked
+                address 1 - set Inbound 2 - 3 </a>
+              <a style="color:#bbff00"
+                href="https://explorer.bitquery.io/ethereum/address/0x98f34e5fecd98a85a5a93bf325d808beb4828b61/graph">Tracked
+                address 2 - set Inbound 2 - 3</a>
+            </div>
+          </h2>
+
+        </div>
+        <div class="item5">
+
+          <h4>
+            <p> ChangeLog: </p>
+            <p> 10/01/2022 -> Updated sites </p>
+            <p> 29/12/2021 -> Updated Home page </p>
+            <p> 23/12/2021 -> Updated content Main & Home & Gallery "DFdev roound by Kooshaba 12/2021" / scammers shits
+              picture </p>
+          </h4>
+        </div>
+
       </div>
 
-      <div class="item3">
-        <h2 >
-          <p> 10/01/2022 - BenchTestPlugins - FerdaAnt's BOT WIP DF - local R3 speed 2000</p>
-          
-          <iframe width="420" height="315"
-src="https://www.youtube.com/embed/uD4Z_Rjz3RQ" frameborder="0" allowfullscreen>
-</iframe>
-          <br>
-          <p> 9/01/2022 - 9STX6 Empire in DFdao Community round 1: Death of the Universe </p>
-          <p> &emsp; Preparing some complex feedback about #2 place :D </p>
-          <p> &emsp; Memories from DFdao Community round 1: Death of the Universe <a href="Memories.html" style="color:#00ff00">Gallery</a> </p>
-          <br>
-          <br>
-          <a href="https://opensea.io/assets/0x9724fdf5ae41570decc2d3094c65eafa7e1ab7d4/39565163400297645850005659238505187020060667857058521155439685050221633517481" style="color:#00ff00">Donate me!!! You will recieve access to my pack of plugins from offical DF round 4. #18 place. Bury Implant Mine </a>
-          
-          <p>
-          <video width="100" height="100" autoplay muted loop>
-          <source src="https://darkforest-valhalla.s3.us-east-2.amazonaws.com/resources/webm/r4-0-39565163400297645850005659238505187020060667857058521155439685050221633517481.webm" type="video/webm">
-          </video></p>
-         <br>
-          <br>
-<p> 30/12/2021 - New plugin for basic Diplomacy Ambassador with colored heat areas map... <a style="color:#00ff00" href="https://github.com/darkforest-eth/plugins/pull/188/files">Github /188</a>  </p>
-<a href="img/Gallery/Plugins/DiplomacyAmbassadorBig.png" data-lightbox="mygallery" data-title="Diplomacy Ambassador"> <img src="img/Gallery/Plugins/DiplomacyAmbassador.png"></a>
-<p> you can support grants for more zk proof chat and guilds <a style="color:#00ff00" href="https://gitcoin.co/grants/4287/zk-chat-and-guild-system-in-dark-forest">GitCoin Grant Zk-chat & Guild system </a></p>
-<br>
-<br>
-<p> 27/12/2021 - Was announced DF Dao Community Round - 1/1/2022<->4/1/2022 <a style="color:#00ff00" href="https://medium.com/dfdao/a-dark-forest-new-years-community-round-death-of-the-universe-785af7c2b56e">DFDao Community Round: Death of the Universe</a> <a style="color:#ff9900" href="https://modukon.github.io/">START TIME</a></p>
-<br>
-<p> 24/12/2021 - Take this sites with a reserve are from a fanatical player of Dark Forest and I'll be only happy if they can help some novice explorer and in the future maybe for more experienced players. I will try to report my life in the Dark Forest Universe. Only things that are documented will remain in Memories. Over time, as I learn how to work on web3 html pages, content and features will be added. I'm currently focusing on three main points ... There will be something like a blog. The Corrupted sun is the main signpost where I have prepared the most important links that I use myself. , and in Memories there will be a gallery around my exploring DF universe ... This sites are builded via <a1 href="https://pages.github.com/">Github pages</a1>.  </p>
- <p> I would like to <span style="color:#FF0000">warn all</span> to avoid any mischievous behavior and report that immediately to the official dev teams. In recent days, there has been an attempt to discredit the work of developers and fun of our community through dishonest attacks by scammers ... More on official DF discord ... </p>
- <p> <span style="color:#FF0000">!!! Avoid any purshase of pre-sale token... !!! </span> </p>
- <div class="gallery" id="scammer">
-  <a href="scammershitDF/Df-scamer11-.png" data-lightbox="mygallery" data-title="Scammer ETH address 0x0D59311Cdc9C120daE893721a545e64bBE526be9"> <img src="scammershitDF/Df-scamer11-small.png"></a>
- <a style="color:#bbff00" href="https://explorer.bitquery.io/ethereum/address/0x30df2ca2d38c947df560d92be39a89b5bf4bda52/graph">Tracked address 1 - set Inbound 2 - 3 </a>
- <a style="color:#bbff00" href="https://explorer.bitquery.io/ethereum/address/0x98f34e5fecd98a85a5a93bf325d808beb4828b61/graph">Tracked address 2 - set Inbound 2 - 3</a>
-</div>
-</h2>
+    </nav>
+  </details>
 
-    </div>
-    <div class="item5">
-      
-      <h4>
-        <p> ChangeLog: </p>
-        <p> 10/01/2022  ->  Updated sites </p>
-        <p> 29/12/2021  ->  Updated Home page </p>
-        <p> 23/12/2021  ->  Updated content Main & Home & Gallery "DFdev roound by Kooshaba 12/2021" / scammers shits picture </p>
-        </h4>
-    </div>
-  
+
+  <div class="navbar">
+    <a href="https://github.com/Stx69/DarkForest"><svg id="github" xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" viewBox="0 0 24 24">
+        <path
+          d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-4.466 19.59c-.405.078-.534-.171-.534-.384v-2.195c0-.747-.262-1.233-.55-1.481 1.782-.198 3.654-.875 3.654-3.947 0-.874-.312-1.588-.823-2.147.082-.202.356-1.016-.079-2.117 0 0-.671-.215-2.198.82-.64-.18-1.324-.267-2.004-.271-.68.003-1.364.091-2.003.269-1.528-1.035-2.2-.82-2.2-.82-.434 1.102-.16 1.915-.077 2.118-.512.56-.824 1.273-.824 2.147 0 3.064 1.867 3.751 3.645 3.954-.229.2-.436.552-.508 1.07-.457.204-1.614.557-2.328-.666 0 0-.423-.768-1.227-.825 0 0-.78-.01-.055.487 0 0 .525.246.889 1.17 0 0 .463 1.428 2.688.944v1.489c0 .211-.129.459-.528.385-3.18-1.057-5.472-4.056-5.472-7.59 0-4.419 3.582-8 8-8s8 3.581 8 8c0 3.533-2.289 6.531-5.466 7.59z" />
+      </svg></a>
+    <img class="tip-button" id="tip-button" title="DONATE ME!!!" src="img/Donate.png" alt="Metamask tip button">
+    <a href="index.html">
+      <img class="index-button" id="index-button" title="Back to main page" src="img/Back.png" alt="Back to main page">
+    </a>
+    <h3>DONATE!!! THANK YOU AT ADVANCE!!! MORE WILL COME!!! </span>
+      <p>Your address: <span class="showAccount" id="showAccount"></p>
+      <p>My address: <span class="showMy" id="showMy"></span></p>
+      <p>Chain: <span class="showChain" id="showChain"></span></p>
+    </h3>
+    <div class="message"></div>
   </div>
 
-</nav>
-</details>
+  <script>
 
+    var MY_ADDRESS = '0x5E5d45EC270dff3f80d8672aEF7217864C252d17'
+    var tipButton = document.querySelector('.tip-button')
+    var showAccount = document.querySelector('.showAccount')
+    var showMy = document.querySelector('.showMy')
+    var showChain = document.querySelector('.showChain')
+    var h3 = document.querySelector('h3')
+    h3.style.fontSize = "0px";
 
-<div class="navbar">
-  <a href="https://github.com/Stx69/DarkForest"><svg id="github" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-4.466 19.59c-.405.078-.534-.171-.534-.384v-2.195c0-.747-.262-1.233-.55-1.481 1.782-.198 3.654-.875 3.654-3.947 0-.874-.312-1.588-.823-2.147.082-.202.356-1.016-.079-2.117 0 0-.671-.215-2.198.82-.64-.18-1.324-.267-2.004-.271-.68.003-1.364.091-2.003.269-1.528-1.035-2.2-.82-2.2-.82-.434 1.102-.16 1.915-.077 2.118-.512.56-.824 1.273-.824 2.147 0 3.064 1.867 3.751 3.645 3.954-.229.2-.436.552-.508 1.07-.457.204-1.614.557-2.328-.666 0 0-.423-.768-1.227-.825 0 0-.78-.01-.055.487 0 0 .525.246.889 1.17 0 0 .463 1.428 2.688.944v1.489c0 .211-.129.459-.528.385-3.18-1.057-5.472-4.056-5.472-7.59 0-4.419 3.582-8 8-8s8 3.581 8 8c0 3.533-2.289 6.531-5.466 7.59z"/></svg></a>
-  <img class="tip-button" id="tip-button" title="DONATE ME!!!" src="img/Donate.png" alt="Metamask tip button" >
-  <a href="index.html">
-  <img  class="index-button" id="index-button" title="Back to main page" src="img/Back.png" alt="Back to main page" >
-</a>
-  <h3>DONATE!!! THANK YOU AT ADVANCE!!! MORE WILL COME!!! </span>
-  <p>Your address: <span class="showAccount" id="showAccount"></p>
-  <p>My address: <span class="showMy" id="showMy"></span></p>
-  <p>Chain: <span class="showChain" id="showChain"></span></p></h3>
-  <div class="message"></div>
-</div>
-
-<script>
-  
-  var MY_ADDRESS = '0x5E5d45EC270dff3f80d8672aEF7217864C252d17'
-  var tipButton = document.querySelector('.tip-button')
-  var showAccount = document.querySelector('.showAccount')
-  var showMy = document.querySelector('.showMy')
-  var showChain = document.querySelector('.showChain')
-  var h3 = document.querySelector('h3')
-  h3.style.fontSize = "0px";
-
-  tipButton.addEventListener('click',async function() 
-    {
-    if (typeof window.ethereum === 'undefined') {   
-      return renderMessage('<div>You need to install <a href=“https://metmask.io“>MetaMask </a> to use this feature.  <a href=“https://metmask.io“>https://metamask.io</a></div>')
-    }
+    tipButton.addEventListener('click', async function () {
+      if (typeof window.ethereum === 'undefined') {
+        return renderMessage('<div>You need to install <a href=“https://metmask.io“>MetaMask </a> to use this feature.  <a href=“https://metmask.io“>https://metamask.io</a></div>')
+      }
 
       // window.ethereum
-  try {
-const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-const curretChain = await ethereum.request({ method: 'net_version' });
-showChain.innerHTML = curretChain;
-var account = accounts[0];
-showAccount.innerHTML = accounts[0];
-showMy.innerHTML = MY_ADDRESS;
-h3.style.fontSize = "10px";
-const chainETH = '1';
-const chainXdai = '100';
-if (curretChain !== chainXdai ){
-  var amount = '0x' + (2000000000000000).toString(16);
-}
-else {
-var amount = '0x' + (1000000000000000000).toString(16);
-}
+      try {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const curretChain = await ethereum.request({ method: 'net_version' });
+        showChain.innerHTML = curretChain;
+        var account = accounts[0];
+        showAccount.innerHTML = accounts[0];
+        showMy.innerHTML = MY_ADDRESS;
+        h3.style.fontSize = "10px";
+        const chainETH = '1';
+        const chainXdai = '100';
+        if (curretChain !== chainXdai) {
+          var amount = '0x' + (2000000000000000).toString(16);
+        }
+        else {
+          var amount = '0x' + (1000000000000000000).toString(16);
+        }
 
-const transactionHash = await ethereum.request({
-  method: 'eth_sendTransaction',
-  params: [
-    {
-      to: MY_ADDRESS,
-      from: account,
-      value: amount,
-    },
-  ],
-})
-// Handle the result
+        const transactionHash = await ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [
+            {
+              to: MY_ADDRESS,
+              from: account,
+              value: amount,
+            },
+          ],
+        })
+        // Handle the result
 
-console.log(transactionHash);
-} catch (error) {
-console.error(error);
-}
-  function renderMessage (message) 
-      {
-      var messageEl = document.querySelector('.message')
-      messageEl.innerHTML = message
-      }})   
+        console.log(transactionHash);
+      } catch (error) {
+        console.error(error);
+      }
+      function renderMessage(message) {
+        var messageEl = document.querySelector('.message')
+        messageEl.innerHTML = message
+      }
+    })
 
 
-</script>
+  </script>
 
 </body>
+
 </html>
